@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katsman Kreamery | AACK! It's Delicious!</title>
+    
+    <!-- Fonts: Comic Neue for that strip vibe -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400&family=Bangers&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        comic: {
+                            pink: '#FF99CC', // Classic "Cathy" sweater pink
+                            red: '#FF3333',  // Heart red
+                            black: '#000000', // Ink black
+                            white: '#FFFFFF', // Paper white
+                            yellow: '#FFEB3B', // Speech bubble yellow
+                            blue: '#33CCFF'    // Accent blue
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Bangers', 'cursive'],
+                        comic: ['Comic Neue', 'cursive'],
+                    },
+                    boxShadow: {
+                        'comic': '8px 8px 0px 0px rgba(0,0,0,1)',
+                        'comic-hover': '4px 4px 0px 0px rgba(0,0,0,1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #E0E0E0; /* Newspaper gray background */
+            background-image: radial-gradient(#000000 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-opacity: 0.1;
+            color: #000;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 0.05em;
+        }
+
+        .comic-panel {
+            background: white;
+            border: 4px solid black;
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+            position: relative;
+        }
+
+        /* Speech Bubble Tail */
+        .speech-bubble {
+            position: relative;
+            background: #fff;
+            border: 4px solid #000;
+        }
+        .speech-bubble:after, .speech-bubble:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-top-color: #000;
+            border-bottom: 0;
+            border-left: 0;
+            margin-left: -10px;
+            margin-bottom: -20px;
+        }
+        .speech-bubble:after {
+            border-top-color: #fff;
+            border-width: 15px;
+            margin-left: -6px;
+            margin-bottom: -11px;
+        }
+
+        /* Jagged "Scream" Bubble */
+        .scream-bubble {
+            background: #fff;
+            position: relative;
+            clip-path: polygon(
+                0% 0%, 10% 5%, 20% 0%, 30% 5%, 40% 0%, 50% 5%, 60% 0%, 70% 5%, 80% 0%, 90% 5%, 100% 0%, 
+                95% 10%, 100% 20%, 95% 30%, 100% 40%, 95% 50%, 100% 60%, 95% 70%, 100% 80%, 95% 90%, 100% 100%,
+                90% 95%, 80% 100%, 70% 95%, 60% 100%, 50% 95%, 40% 100%, 30% 95%, 20% 100%, 10% 95%, 0% 100%,
+                5% 90%, 0% 80%, 5% 70%, 0% 60%, 5% 50%, 0% 40%, 5% 30%, 0% 20%, 5% 10%
+            );
+            padding: 2rem;
+            display: inline-block;
+        }
+
+        .halftone {
+            background-image: radial-gradient(circle, #000 1px, transparent 1.5px);
+            background-size: 8px 8px;
+            opacity: 0.1; 
+        }
+
+        .wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-comic-pink selection:text-white">
+
+    <!-- Top Border Strip -->
+    <div class="h-4 bg-comic-pink border-b-4 border-black"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full z-50 bg-white border-b-4 border-black shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group wiggle">
+                <div class="bg-comic-pink border-2 border-black rounded-full w-12 h-12 flex items-center justify-center text-2xl">
+                    🍦
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-3xl font-heading text-black transform -rotate-2">KATSMAN</span>
+                    <span class="text-xl font-heading text-comic-red transform rotate-1">KREAMERY</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center font-bold text-xl tracking-wide text-black">
+                <a href="#about" class="hover:text-comic-pink hover:underline decoration-4 decoration-black transition-all">Who Am I?!</a>
+                <a href="#menu" class="hover:text-comic-pink hover:underline decoration-4 decoration-black transition-all">The Goods</a>
+                <a href="#services" class="hover:text-comic-pink hover:underline decoration-4 decoration-black transition-all">Gimme!</a>
+                <a href="#contact" class="bg-comic-yellow border-2 border-black text-black px-6 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all transform rotate-2">
+                    Panic Order!
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-black text-3xl focus:outline-none" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t-4 border-black absolute w-full">
+            <div class="flex flex-col p-6 space-y-4 font-bold text-center text-2xl font-heading border-b-4 border-black">
+                <a href="#about" onclick="toggleMobileMenu()">Who Am I?!</a>
+                <a href="#menu" onclick="toggleMobileMenu()">The Goods</a>
+                <a href="#contact" onclick="toggleMobileMenu()">Panic Order</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Comic Strip Hero Section -->
+    <header class="relative py-16 overflow-hidden">
+        <div class="container mx-auto px-4">
+            <!-- The Comic Strip Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Panel 1: The Setup -->
+                <div class="comic-panel p-6 flex flex-col items-center justify-center bg-comic-white aspect-square md:aspect-auto">
+                    <div class="text-center">
+                        <span class="bg-black text-white px-2 py-1 font-bold text-lg -rotate-2 inline-block mb-4">PANEL 1: THE CRAVING</span>
+                        <h1 class="text-5xl lg:text-7xl font-heading text-black leading-none mb-4">
+                            AACK!!<br>
+                            <span class="text-comic-red">I NEED</span><br>
+                            SUGAR!
+                        </h1>
+                        <p class="text-xl font-bold italic">"Why does chocolate taste better at 3 AM?!"</p>
+                    </div>
+                </div>
+
+                <!-- Panel 2: The Hero Image (UPDATED FOR YOUR ART) -->
+                <div class="comic-panel overflow-hidden p-0 relative group">
+                    <div class="absolute inset-0 border-[12px] border-white z-10 pointer-events-none"></div>
+                    <!-- 
+                        INSTRUCTIONS: 
+                        1. Save your custom comic image as "katsman-comic.jpg" 
+                        2. Put it in the same folder as this file.
+                    -->
+                    <img 
+                        src="katsman-comic.jpg" 
+                        onerror="this.src='https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"
+                        alt="Katsman Kreamery Comic Art" 
+                        class="w-full h-full object-cover hover:scale-105 transition-all duration-300"
+                    >
+                    <!-- Removed the "IT CALLS TO ME" bubble because your art already has text! -->
+                </div>
+
+                <!-- Panel 3: The Resolution -->
+                <div class="comic-panel p-6 bg-comic-pink flex flex-col justify-center items-center text-center">
+                    <div class="scream-bubble shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] mb-6">
+                        <span class="font-heading text-4xl transform rotate-3 block">KATSMAN KREAMERY</span>
+                    </div>
+                    <p class="text-xl font-bold mb-6 px-4">Small Batch. Big Emotions. Hand-churned by Sophia Katsman while panicking.</p>
+                    
+                    <a href="#menu" class="inline-block bg-comic-blue border-4 border-black text-white text-2xl font-heading px-8 py-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
+                        SEE THE FLAVORS!
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee Strip -->
+    <div class="bg-black py-3 overflow-hidden border-y-4 border-white transform -rotate-1 scale-105 z-10 relative">
+        <div class="marquee-container">
+            <div class="marquee-content font-heading text-comic-yellow text-3xl whitespace-nowrap animate-marquee">
+                NO GUILT ONLY DAIRY • AACK! SO GOOD! • HAND WHISKED AT MIDNIGHT • MY ARM HURTS • I'M SO TIRED! • BUY MY ICE CREAM • NO GUILT ONLY DAIRY • AACK! SO GOOD! • HAND WHISKED AT MIDNIGHT • I'M SO TIRED!
+            </div>
+        </div>
+        <style>
+            .animate-marquee { animation: marquee 15s linear infinite; }
+            @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        </style>
+    </div>
+
+    <!-- About Section: "The Origin Story" -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-6xl font-heading text-center mb-12 transform -rotate-2 text-shadow-comic">
+                <span class="bg-white border-4 border-black px-4 shadow-[8px_8px_0px_0px_rgba(255,51,51,1)]">THE ORIGIN STORY</span>
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Image Panel -->
+                <div class="comic-panel p-4 bg-white rotate-1 relative">
+                    <img src="https://images.unsplash.com/photo-1583332130317-de122d1ba522?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sophia" class="w-full h-96 object-cover border-2 border-black grayscale contrast-125 hover:grayscale-0 transition-all">
+                    <div class="absolute -top-6 -right-6 bg-comic-yellow border-4 border-black p-4 rounded-full w-32 h-32 flex items-center justify-center text-center shadow-comic animate-pulse">
+                        <span class="font-heading text-xl leading-tight">ACTUAL FOOTAGE!</span>
+                    </div>
+                    <!-- Added Tired Bubble -->
+                    <div class="absolute bottom-20 -left-6 bg-white border-4 border-black px-4 py-2 rounded-full z-20 speech-bubble transform -rotate-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <p class="font-heading text-lg">I'M SO TIRED!</p>
+                    </div>
+                    <div class="mt-2 text-center font-bold text-sm bg-black text-white inline-block px-2">FIG 1. SOPHIA IN NATURAL HABITAT</div>
+                </div>
+
+                <!-- Text Bubbles -->
+                <div class="space-y-6">
+                    <div class="bg-white border-4 border-black p-6 rounded-2xl relative shadow-comic">
+                        <div class="absolute top-1/2 -left-4 w-6 h-6 bg-white border-l-4 border-b-4 border-black transform rotate-45"></div>
+                        <h3 class="text-3xl font-heading mb-2">IS THIS NORMAL?</h3>
+                        <p class="text-xl font-comic leading-tight">
+                            If you saw me in the kitchen at 3 AM—covered in cocoa powder, eyes wide, whispering to a pot of caramel—you’d think: 
+                            <span class="font-bold text-comic-red">"AACK! SHE'S LOST IT!"</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-white border-4 border-black p-6 rounded-2xl relative shadow-comic ml-12">
+                        <div class="absolute top-1/2 -left-4 w-6 h-6 bg-white border-l-4 border-b-4 border-black transform rotate-45"></div>
+                        <h3 class="text-3xl font-heading mb-2">BUT IT'S NECESSARY!</h3>
+                        <p class="text-xl font-comic leading-tight">
+                            That obsessive energy makes the texture PERFECT. Every pint is spun by hand. I peel the fruit. I bake the cookies. I stress about the ripple distribution so you don't have to!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / How to work with me -->
+    <section id="services" class="py-20 bg-comic-blue border-t-4 border-b-4 border-black">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl font-heading text-white text-stroke-black mb-12">HOW TO GET THE GOODS</h2>
+            <style>.text-stroke-black { -webkit-text-stroke: 2px black; }</style>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="comic-panel p-8 bg-white hover:-translate-y-2 transition-transform">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <h3 class="text-3xl font-heading border-b-4 border-comic-yellow inline-block mb-4">CATERING</h3>
+                    <p class="text-lg font-bold">I bring the cart to your wedding! (Please invite me, I love cake).</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="comic-panel p-8 bg-white hover:-translate-y-2 transition-transform">
+                    <div class="text-6xl mb-4">🧪</div>
+                    <h3 class="text-3xl font-heading border-b-4 border-comic-pink inline-block mb-4">CUSTOM</h3>
+                    <p class="text-lg font-bold">Want a flavor that tastes like 1999? I'll invent it for you.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="comic-panel p-8 bg-white hover:-translate-y-2 transition-transform">
+                    <div class="text-6xl mb-4">📦</div>
+                    <h3 class="text-3xl font-heading border-b-4 border-comic-red inline-block mb-4">DROPS</h3>
+                    <p class="text-lg font-bold">Sign up for my email list. It's chaotic but delicious.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Showcase -->
+    <section id="menu" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 relative">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-12 bg-comic-yellow border-4 border-black px-4 py-2 rotate-3 shadow-comic z-10">
+                    <span class="font-heading text-2xl">WARNING: ADDICTIVE</span>
+                </div>
+                <h2 class="text-6xl font-heading text-black bg-white border-4 border-black inline-block px-8 py-2 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+                    THE LINEUP
+                </h2>
+            </div>
+
+            <!-- Flavor Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="flavor-grid">
+                <!-- JS Populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA Section -->
+    <section id="contact" class="py-20 bg-comic-pink border-t-4 border-black relative overflow-hidden">
+        <!-- Halftone Pattern Overlay -->
+        <div class="absolute inset-0 halftone pointer-events-none"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto comic-panel p-8 md:p-12 bg-white transform rotate-1">
+                
+                <div class="absolute -top-6 -left-6 bg-black text-white font-heading text-2xl px-4 py-2 -rotate-3 border-2 border-white">
+                    SAY HELLO!
+                </div>
+
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl md:text-5xl font-heading mb-2">LET'S MAKE MAGIC!</h2>
+                    <p class="text-xl font-bold italic text-comic-blue">(And by magic, I mean Ice Cream)</p>
+                </div>
+
+                <form class="space-y-4" onsubmit="event.preventDefault(); document.getElementById('success-msg').classList.remove('hidden');">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <label class="font-heading text-xl mb-1">NAME:</label>
+                            <input type="text" class="border-4 border-black p-3 font-bold focus:bg-comic-yellow focus:outline-none transition-colors rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]" placeholder="WHO ARE YOU?">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="font-heading text-xl mb-1">EMAIL:</label>
+                            <input type="email" class="border-4 border-black p-3 font-bold focus:bg-comic-yellow focus:outline-none transition-colors rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]" placeholder="WHERE DO I REPLY?">
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col">
+                        <label class="font-heading text-xl mb-1">THE VIBE:</label>
+                        <select class="border-4 border-black p-3 font-bold focus:bg-comic-yellow focus:outline-none transition-colors rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] bg-white">
+                            <option>I need catering (Help!)</option>
+                            <option>I want a custom flavor (Genius idea!)</option>
+                            <option>Just saying hi (ACK! Hi!)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label class="font-heading text-xl mb-1">YOUR MESSAGE:</label>
+                        <textarea rows="4" class="border-4 border-black p-3 font-bold focus:bg-comic-yellow focus:outline-none transition-colors rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]" placeholder="Tell me everything..."></textarea>
+                    </div>
+
+                    <button class="w-full bg-black text-white font-heading text-3xl py-4 border-4 border-transparent hover:bg-comic-red hover:border-black hover:text-black hover:shadow-comic transition-all">
+                        SEND IT! 🚀
+                    </button>
+
+                    <div id="success-msg" class="hidden bg-comic-blue border-4 border-black p-4 text-center font-bold text-white mt-4 shadow-comic">
+                        MESSAGE SENT! NOW GO EAT A COOKIE! 🍪
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 border-t-8 border-comic-yellow">
+        <div class="container mx-auto px-4 text-center font-comic">
+            <h3 class="font-heading text-4xl mb-4 text-comic-pink">KATSMAN KREAMERY</h3>
+            <div class="flex justify-center gap-6 text-3xl mb-8">
+                <a href="#" class="hover:text-comic-yellow hover:scale-125 transition-transform"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-comic-yellow hover:scale-125 transition-transform"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="mailto:sophia@katsmankreamery.com" class="hover:text-comic-yellow hover:scale-125 transition-transform"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p class="text-xl">© 2025 Sophia Katsman. <br> <span class="text-sm opacity-50">Made with panic and sugar.</span></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Data: Comic Strip Flavors
+        const flavors = [
+            {
+                name: "Midnight Truffle",
+                desc: "Dark chocolate ganache with sea salt. FOR EMERGENCIES ONLY.",
+                img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                color: "bg-comic-pink"
+            },
+            {
+                name: "Roasted Strawberry",
+                desc: "Real fruit. Balsamic vinegar. It's practically a salad, right?",
+                img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                color: "bg-comic-red"
+            },
+            {
+                name: "Honeycomb Panic",
+                desc: "Smashed honeycomb candy in vanilla. Great for crunching away stress.",
+                img: "https://images.unsplash.com/photo-1555529733-0e670560f7e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                color: "bg-comic-yellow"
+            },
+            {
+                name: "Matcha Zen",
+                desc: "Green tea & white chocolate. For when you're trying to be calm.",
+                img: "https://images.unsplash.com/photo-1554652292-326938d2b90b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                color: "bg-comic-blue"
+            },
+            {
+                name: "Coffee & Cruller",
+                desc: "Coffee ice cream with donuts. BREAKFAST IS SERVED!",
+                img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                color: "bg-white"
+            },
+            {
+                name: "Lavender Blues",
+                desc: "Blueberry lavender swirl. It tastes like a spa day.",
+                img: "https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                color: "bg-comic-pink"
+            }
+        ];
+
+        // Render Flavors
+        const flavorGrid = document.getElementById('flavor-grid');
+        
+        flavors.forEach((flavor, index) => {
+            const card = document.createElement('div');
+            // Alternating rotations for comic feel
+            const rotation = index % 2 === 0 ? 'rotate-1' : '-rotate-1';
+            
+            card.className = `comic-panel bg-white p-4 flex flex-col ${rotation} hover:rotate-0 hover:z-10 transition-all duration-300`;
+            
+            card.innerHTML = `
+                <div class="bg-black text-white font-bold text-sm px-2 py-1 absolute -top-3 -right-3 z-20 border-2 border-white transform rotate-3">
+                    FLAVOR #${index + 1}
+                </div>
+                <div class="h-48 border-2 border-black mb-4 overflow-hidden relative">
+                    <img src="${flavor.img}" alt="${flavor.name}" class="w-full h-full object-cover filter contrast-125 hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-3xl font-heading mb-2 text-black leading-none">${flavor.name}</h3>
+                <p class="text-lg font-comic leading-tight mb-4 flex-grow">${flavor.desc}</p>
+                <div class="mt-auto pt-4 border-t-2 border-dashed border-black flex justify-between items-center">
+                    <span class="font-bold">IN STOCK!</span>
+                    <button class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-comic-red transition-colors">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            `;
+            flavorGrid.appendChild(card);
+        });
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
